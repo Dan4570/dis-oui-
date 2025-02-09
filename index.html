@@ -100,6 +100,11 @@
             0% { transform: translateY(0) rotate(0); opacity: 1; }
             100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
         }
+
+        .image {
+            width: 200px; /* Réduction de la largeur de l'image */
+            height: auto; /* Ajuste la hauteur proportionnellement */
+        }
     </style>
 </head>
 <body>
@@ -140,7 +145,7 @@
     <h1>Joyeuse Saint-Valentin, Lana ! 💖</h1>
     <div class="heart">❤️</div>
     <p class="message">Mon amour, tu es la plus belle chose qui me soit arrivée. Merci d’illuminer ma vie chaque jour ! 💕</p>
-    <img class="image" src="IMG_7365.jpg" alt="Image romantique" width="300px">
+    <img class="image" src="IMG_7365.jpg" alt="Image romantique">
     <p class="message">Veux-tu être ma Valentine ? 💘</p>
     <div class="button-container">
         <button class="button" onclick="reponse('oui')">OUI ! 💕</button>
