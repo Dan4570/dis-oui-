@@ -7,35 +7,48 @@
     <style>
         body {
             text-align: center;
-            background: linear-gradient(45deg, #ff9a9e, #fad0c4, #fbc2eb), 
-                        url('https://www.example.com/heart-pattern.png'); /* Utilise une image de fond avec des cœurs */
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4, #fbc2eb),
+                        url('https://www.example.com/heart-pattern.png');
             background-size: cover;
+            animation: backgroundMove 10s linear infinite;
             font-family: 'Arial', sans-serif;
             color: #d63384;
-            animation: fadeIn 2s ease-in;
             overflow: hidden;
+            position: relative;
         }
-        
-        /* Animation de fade-in */
+
+        /* Animation du mouvement de fond */
+        @keyframes backgroundMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 100% 100%; }
+        }
+
+        /* Animation fade-in de la page */
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
 
         h1 {
-            font-size: 2.8em;
-            animation: glow 2s infinite alternate;
+            font-size: 3em;
+            animation: glow 2s infinite alternate, slideIn 2s ease-out forwards;
         }
 
         /* Animation de glow pour le titre */
         @keyframes glow {
             from { text-shadow: 0 0 10px #ff66b2; }
-            to { text-shadow: 0 0 20px #ff1493; }
+            to { text-shadow: 0 0 30px #ff1493; }
+        }
+
+        /* Animation de texte qui glisse */
+        @keyframes slideIn {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
 
         .heart {
             font-size: 6em;
-            animation: heartbeat 1.5s infinite;
+            animation: heartbeat 1.5s infinite, pulse 1.5s ease-in-out infinite;
         }
 
         /* Animation des cœurs qui battent */
@@ -44,18 +57,38 @@
             50% { transform: scale(1.5); }
             100% { transform: scale(1); }
         }
-        
+
+        /* Animation du pulsage du cœur */
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.7); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Animation des étoiles scintillantes */
+        .star {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 5px;
+            background-color: #ff66b2;
+            animation: sparkle 1.5s infinite;
+            border-radius: 50%;
+            opacity: 0;
+        }
+
+        @keyframes sparkle {
+            0% { opacity: 0.1; transform: translateY(0) scale(1); }
+            50% { opacity: 1; transform: translateY(-10px) scale(1.2); }
+            100% { opacity: 0.1; transform: translateY(0) scale(1); }
+        }
+
         .message {
             font-size: 1.8em;
             margin: 20px;
             opacity: 0;
             animation: slideIn 2s ease-out forwards;
-        }
-
-        /* Animation du texte qui glisse */
-        @keyframes slideIn {
-            from { transform: translateY(50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
         }
 
         .button-container {
@@ -73,25 +106,25 @@
             border: none;
             border-radius: 15px;
             cursor: pointer;
-            transition: transform 0.3s, background-color 0.3s;
+            transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
         }
 
         .button:hover {
             background-color: #e60073;
             transform: scale(1.2) rotate(5deg);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
         }
 
-        .heart-animation {
-            font-size: 12em;
-            color: #ff0066;
-            animation: pulse 1s ease-out infinite;
+        .image {
+            width: 200px;
+            height: auto;
+            animation: imagePop 2s ease-out forwards;
         }
 
-        /* Animation du cœur qui pulse */
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.7); opacity: 0.8; }
-            100% { transform: scale(1); opacity: 1; }
+        /* Animation d'apparition de l'image */
+        @keyframes imagePop {
+            from { transform: scale(0); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
         }
 
         .confetti {
@@ -109,10 +142,13 @@
             100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
         }
 
-        .image {
-            width: 200px;
-            height: auto;
+        .button-container {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
         }
+
     </style>
 </head>
 <body>
@@ -123,19 +159,7 @@
         window.onload = function() {
             document.getElementById('music').play();
             generateConfetti();
-        }
-        
-        function reponse(val) {
-            let heart = document.getElementById('heart-yes');
-            if (val === 'oui') {
-                heart.style.visibility = 'visible';
-                heart.classList.add('heart-animation');
-                setTimeout(() => {
-                    alert('Yay !! 💖💖💖 Je suis trop heureux !');
-                }, 500);
-            } else {
-                alert('Pourquoi tu voulais dire non même hein ! 😢');
-            }
+            generateStars();
         }
 
         function generateConfetti() {
@@ -146,6 +170,30 @@
                 confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
                 confetti.style.backgroundColor = ['#ff66b2', '#ff1493', '#fbc2eb'][Math.floor(Math.random() * 3)];
                 document.body.appendChild(confetti);
+            }
+        }
+
+        function generateStars() {
+            for (let i = 0; i < 100; i++) {
+                let star = document.createElement('div');
+                star.classList.add('star');
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.top = Math.random() * 100 + 'vh';
+                star.style.animationDuration = (Math.random() * 1 + 1) + 's';
+                document.body.appendChild(star);
+            }
+        }
+
+        function reponse(val) {
+            let heart = document.getElementById('heart-yes');
+            if (val === 'oui') {
+                heart.style.visibility = 'visible';
+                heart.classList.add('heart-animation');
+                setTimeout(() => {
+                    alert('Yay !! 💖💖💖 Je suis trop heureux !');
+                }, 500);
+            } else {
+                alert('Pourquoi tu voulais dire non même hein ! 😢');
             }
         }
     </script>
