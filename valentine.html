@@ -20,7 +20,6 @@
             animation: glow 2s infinite alternate;
         }
 
-        /* Animation de glow pour le titre */
         @keyframes glow {
             from { text-shadow: 0 0 10px #ff66b2; }
             to { text-shadow: 0 0 30px #ff1493; }
@@ -32,43 +31,24 @@
             margin-top: 20px;
         }
 
-        /* Animation des cœurs qui battent */
         @keyframes heartbeat {
             0% { transform: scale(1); }
             50% { transform: scale(1.5); }
             100% { transform: scale(1); }
         }
 
-        /* Animation du pulsage du cœur */
         @keyframes pulse {
             0% { transform: scale(1); opacity: 1; }
             50% { transform: scale(1.7); opacity: 0.8; }
             100% { transform: scale(1); opacity: 1; }
         }
 
-        .confetti {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background-color: #ff66b2;
-            border-radius: 50%;
-            animation: confetti-fall 3s linear infinite;
-        }
-
-        /* Animation des confettis qui tombent */
-        @keyframes confetti-fall {
-            0% { transform: translateY(0) rotate(0); opacity: 1; }
-            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
-        }
-
         .message {
             font-size: 1.8em;
             margin: 20px;
-            opacity: 0;
             animation: slideIn 2s ease-out forwards;
         }
 
-        /* Animation du texte qui glisse */
         @keyframes slideIn {
             from { transform: translateY(50px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
@@ -76,9 +56,6 @@
 
         .button-container {
             margin-top: 30px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
         }
 
         .button {
@@ -89,6 +66,8 @@
             border: none;
             border-radius: 15px;
             cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
             transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
         }
 
@@ -98,50 +77,28 @@
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
         }
 
-        .heart-animation {
-            animation: heartbeat 1.5s infinite, pulse 1.5s ease-in-out infinite;
-        }
-
         img {
             width: 300px;
-            height: auto;
             animation: imagePop 2s ease-out forwards;
         }
 
-        /* Animation d'apparition de l'image */
         @keyframes imagePop {
             from { transform: scale(0); opacity: 0; }
             to { transform: scale(1); opacity: 1; }
         }
-
     </style>
 </head>
 <body>
-    <script>
-        window.onload = function() {
-            generateConfetti();
-        }
-
-        function generateConfetti() {
-            for (let i = 0; i < 100; i++) {
-                let confetti = document.createElement('div');
-                confetti.classList.add('confetti');
-                confetti.style.left = Math.random() * 100 + 'vw';
-                confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
-                confetti.style.backgroundColor = ['#ff66b2', '#ff1493', '#fbc2eb'][Math.floor(Math.random() * 3)];
-                document.body.appendChild(confetti);
-            }
-        }
-    </script>
-
     <h1>Merci d'avoir accepté ma demande, Lana ! 💖</h1>
     <div class="heart">❤️</div>
     <p class="message">Je suis super heureux que tu sois ma Valentine ! 💕</p>
-    <img src="images/IMG_7365.jpg" alt="Image romantique">
+    
+    <img src="/mon-site/images/IMG_7365.jpg" alt="Image romantique">
+    
     <p class="message">Je t'aime plus que tout ! 💖</p>
 
     <div class="button-container">
-        <a href="index.html" class="button">Retour à la page principale 💕</a>
+        <a href="/mon-site/index.html" class="button">Retour à la page principale 💕</a>
     </div>
 </body>
 </html>
